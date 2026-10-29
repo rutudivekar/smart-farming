@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrushiRaj | Smart Farming For All</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+  <header class="hero" id="home">
+    <nav class="site-nav"><a class="brand" href="#home">Krushi<span>Raj</span></a><div class="portal-nav"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a><a href="#expert">Help</a><button class="nav-login" type="button" data-scroll="login">Login</button><div class="account-tools"><div class="account-name"><span class="profile-avatar" aria-hidden="true">&#128100;</span><span id="profilePhone">Farmer</span></div><label class="language-picker" for="languageSelect"><span data-i18n="languageLabel">Language</span><select id="languageSelect"><option value="en">English</option><option value="hi">Hindi</option><option value="mr">Marathi</option></select></label><button class="logout-button" id="logoutButton" type="button" data-i18n="logout">Logout</button></div></div></nav>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <h1>Welcome to India's <em>leading agriculture</em> platform...</h1>
+        <p>We believe that agriculture is the backbone of our country. KrushiRaj brings useful crop knowledge, planning tools, expert guidance, and market information together for every farmer.</p>
+        <a class="button" href="#services">Explore services</a>
+      </div>
+      <form class="login-panel" id="login">
+        <h2>Welcome back</h2><p>Sign in to manage your farming tools.</p>
+        <label for="phone">Phone number</label><input id="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Enter 10-digit phone number" pattern="[0-9]{10}" required>
+        <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" minlength="6" required>
+        <button class="button button-full" type="submit">Login</button>
+        <small id="loginMessage">Use your registered phone number and password.</small>
+        <button class="account-toggle" id="accountToggle" type="button">Don't have an account? Create one</button>
+      </form>
+    </div>
+  </header>
+  <main id="portalContent" hidden>
+    <section class="intro" id="about">
+      <div class="intro-mark"><img src="/logo.png" alt="KrushiRaj agriculture logo"></div>
+      <div><h2>Welcome to the <em>India's Leading</em> Agriculture Platform...</h2><p>Farming is a profession which not only provides food to eat, but also supports our communities. Our goal is to help farmers make clear, confident decisions with practical information.</p><a class="text-link" href="#services">Learn more &rarr;</a></div>
+    </section>
+    <section class="farmer-overview" id="overview"><div><p class="eyebrow">YOUR FARM OVERVIEW</p><h2>Plan with confidence</h2><p class="muted">Your saved plans and farming tools are ready in one place.</p></div><div class="overview-stat"><strong id="savedPlanCount">0</strong><span>saved plans</span></div><a class="button" href="#crop-planning">Create a plan</a></section>
+    <section id="services" class="services-section">
+      <div class="section-heading centered"><p class="eyebrow" data-i18n="servicesEyebrow">EVERYTHING IN ONE PLACE</p><h2 data-i18n="servicesTitle">- Smart Farming For All -</h2></div>
+      <div class="service-grid"><button class="service-card" type="button" data-view="weather"><img class="service-logo weather-logo" src="/weather-logo.avif" alt="Weather"><strong>Weather</strong><small>Plan around the season</small></button><button class="service-card" type="button" data-view="crop"><img class="service-logo" src="/crop-logo.png" alt="Crop"><strong>Crop</strong><small>Learn and plan better</small></button><button class="service-card" type="button" data-view="expert"><span class="service-icon">&#10022;</span><strong>Expert</strong><small>Get farming guidance</small></button><button class="service-card" type="button" data-view="market"><img class="service-logo" src="/market-logo.png" alt="Market"><strong>Market</strong><small>View sample prices</small></button><button class="service-card" type="button" data-view="bulletin"><span class="service-icon">&#128240;</span><strong>Bulletin</strong><small>Read useful updates</small></button></div>
+      <div class="dashboard" id="dashboard" aria-live="polite" hidden><button class="dashboard-close" id="dashboardClose" type="button" aria-label="Close dashboard">&times;</button><div class="dashboard-heading"><div class="dashboard-icon" id="dashboardIcon">&#9729;</div><div><p class="eyebrow" id="dashboardEyebrow">WEATHER</p><h3 id="dashboardTitle">Weather outlook</h3></div></div><div class="dashboard-body" id="dashboardBody"><p id="dashboardText">Select a service above to see useful information for your farm.</p><div class="dashboard-details" id="dashboardDetails"></div></div><div class="dashboard-footer"><div class="dashboard-stat" id="dashboardStat">24&deg;C</div><button class="button" id="dashboardAction" type="button">Open crop planner</button></div></div>
+    </section>
+    <section id="crop-planning" class="planning-section">
+      <div class="section-heading centered"><p class="eyebrow" data-i18n="planningEyebrow">PLAN YOUR NEXT CROP</p><h2 data-i18n="planningTitle">Crop Planning</h2><p class="muted" data-i18n="planningDescription">Enter your details and keep a simple plan for the season.</p></div>
+      <form class="planning-form" id="planningForm"><label for="planCrop">Crop name</label><select id="planCrop" required><option value="">Please select your crop</option>{% for crop in crops %}<option>{{ crop.name }}</option>{% endfor %}</select><label for="area">Area of field</label><div class="input-row"><input id="area" type="number" min="1" placeholder="Enter area" required><select id="areaUnit" aria-label="Area unit"><option>acre</option><option>hectare</option><option>guntha</option></select></div><label for="region">Your region</label><input id="region" type="text" placeholder="Enter your region" required><label for="plantingDate">Date of planting</label><input id="plantingDate" type="date" required><button class="button" type="submit">Save plan</button><p class="form-message" id="planMessage"></p></form><div class="saved-plan" id="savedPlan" hidden></div><div class="plan-result" id="planResult" hidden></div>
+    </section>
+    <section id="crops">
+      <div class="section-heading"><p class="eyebrow">CROP INFORMATION</p><h2>Crop Data</h2></div>
+      <div class="search-wrap"><label for="cropSearch">Search crops</label><input id="cropSearch" type="search" placeholder="Try wheat, rice, tomato..."></div>
+      <div class="cards" id="cropCards">
+        {% for crop in crops %}
+        <article class="card crop-card">
+          <span class="tag">{{ crop.season }}</span>
+          <h3>{{ crop.name }}</h3>
+          <p><strong>Soil:</strong> {{ crop.soil }}</p>
+          <p><strong>Growing period:</strong> {{ crop.duration }}</p>
+          <p>{{ crop.guidance }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    <section id="prices" class="prices-section">
+      <div class="section-heading centered"><p class="eyebrow">MARKET INFORMATION</p><h2>Krushi Market</h2><p class="muted">Check a crop and quantity before visiting your local market.</p><p class="market-updated">Prices shown are indicative. Verify with your local market before selling.</p></div>
+      <form class="market-form" id="marketForm" novalidate><label for="marketCity">Select your market city</label><select id="marketCity"><option value="">Choose city</option><option>Pune</option><option>Nashik</option><option>Nagpur</option><option>Ahmednagar</option></select><label for="marketProduct">Select product</label><select id="marketProduct"><option value="">Choose crop</option>{% for item in prices %}<option>{{ item.crop }}</option>{% endfor %}</select><label for="marketQuantity">Enter quantity</label><div class="market-quantity"><input id="marketQuantity" type="number" min="1" placeholder="Quantity"><select aria-label="Quantity unit"><option>quintal</option><option>kg</option><option>ton</option></select></div><button class="button" type="submit">Check market</button><p class="form-message" id="marketMessage"></p></form>
+      <div class="market-data-heading"><h3>Market Data</h3><span class="tag">Prices require local verification</span></div><div class="table-wrap"><table><thead><tr><th>Crop</th><th>Local market</th><th>Price</th></tr></thead><tbody>
+      {% for item in prices %}<tr><td>{{ item.crop }}</td><td>{{ item.market }}</td><td>{{ item.price }}</td></tr>{% endfor %}
+      </tbody></table></div>
+    </section>
+    <section id="expert" class="expert-section"><div class="section-heading centered"><p class="eyebrow">TALK WITH AN EXPERT</p><h2>How can we help you?</h2></div><div class="expert-box"><form id="expertForm"><input type="text" placeholder="Type your question" aria-label="Ask an expert" required><button class="button" type="submit">Ask expert</button></form><h3>Frequently asked questions</h3><details><summary>Which crop is best for my region?</summary><p>Start with local soil, rainfall, and seasonal guidance from your agricultural department.</p></details><details><summary>What fertilizer should I use?</summary><p>Use a soil test and follow the recommendation of a qualified local expert.</p></details><details><summary>How can I check market prices?</summary><p>The market section shows demo values. Verify current prices locally before selling.</p></details></div></section>
+    <section class="note"><h2>Farming guidance</h2><p>Crop suitability and input requirements depend on local soil, climate, and conditions. Confirm decisions with your local agricultural department or qualified expert.</p></section>
+  </main>
+  <footer id="contact"><div class="footer-brand"><strong>KrushiRaj</strong><span>Smart Farming For All</span></div><div class="footer-contact"><strong>Contact support</strong><span>+91 98765 43210</span><span>support@krushiraj.in</span></div><div class="footer-contact"><strong>Our office</strong><span>Pune, Maharashtra</span><span>Available Monday to Saturday</span></div></footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
